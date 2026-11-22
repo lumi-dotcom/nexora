@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXORA — Define Your Style, Own Your World</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka / Outfit for chunky rounded display headers -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            nexora: {
+              bg: '#ECE9F5',
+              canvas: '#F8F8FA',
+              purple: '#7E60D6',
+              purpleDark: '#6A4BC4',
+              purpleLight: '#9C83E8',
+              purpleSoft: '#EAE4FB',
+              ink: '#141414',
+              muted: '#6E6D7A'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Fredoka"', '"Outfit"', 'sans-serif'],
+            brand: ['"Outfit"', 'sans-serif'],
+          },
+          boxShadow: {
+            'card': '0 20px 45px -15px rgba(126, 96, 214, 0.28)',
+            'float': '0 14px 30px -8px rgba(20, 20, 20, 0.14)',
+            'pill': '0 8px 20px -4px rgba(126, 96, 214, 0.45)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAFAFC;
+      color: #141414;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Chunky Display Typography matching STYLE & WORLD */
+    .chunky-heading {
+      font-family: 'Fredoka', 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 0.9;
+    }
+
+    /* Subtle floating animation for sparkle & orbital accents */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(4deg); }
+    }
+    .animate-float-slow {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    @keyframes pulseStar {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.12) rotate(12deg); }
+    }
+    .animate-star {
+      animation: pulseStar 4s ease-in-out infinite;
+    }
+
+    /* Glassmorphic social proof pill */
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    /* Pure transparent cutout styling with zero background, border, or shadow */
+    .pure-transparent-cutout {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+    }
+  </style>
+</head>
+<body class="w-full min-h-screen bg-[#FAFAFC] flex flex-col justify-between selection:bg-nexora-purple selection:text-white">
+
+  <!-- Full-Screen Edge-to-Edge Wrapper -->
+  <div class="w-full min-h-screen flex flex-col justify-between relative">
+
+    <!-- ==================== TOP NAVIGATION BAR ==================== -->
+    <header class="w-full sticky top-0 z-30 bg-[#FAFAFC]/90 backdrop-blur-md px-5 sm:px-10 lg:px-14 py-5 flex items-center justify-between">
+      <!-- Left Nav Links (Desktop) -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-[14px] font-medium text-[#2A2A2E]">
+        <a href="#lookbook" onclick="openQuickLook('NEXORA Streetwear Collection')" class="hover:text-nexora-purple transition-colors">Shop</a>
+        <a href="#lookbook" onclick="openQuickLook('New In — Season 04')" class="hover:text-nexora-purple transition-colors">New In</a>
+        <a href="#lookbook" onclick="openQuickLook('Curated Streetwear Collections')" class="hover:text-nexora-purple transition-colors">Collections</a>
+        <a href="#lookbook" onclick="showToast('NEXORA — Crafted for comfort & bold self-expression.')" class="hover:text-nexora-purple transition-colors">About</a>
+        <a href="#lookbook" onclick="showToast('Contact us at hello@nexora.style')" class="hover:text-nexora-purple transition-colors">Contact</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" aria-label="Open Navigation" class="md:hidden p-2.5 rounded-full hover:bg-black/5 transition-colors">
+        <svg class="w-5 h-5 text-nexora-ink" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h10"/>
+        </svg>
+      </button>
+
+      <!-- Center Brand Logo -->
+      <a href="#" class="font-brand font-black text-xl sm:text-[24px] tracking-[0.04em] text-nexora-ink uppercase select-none md:absolute md:left-1/2 md:-translate-x-1/2">
+        NEXORA
+      </a>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center gap-2.5 sm:gap-3.5">
+        <!-- Search Trigger -->
+        <button id="openSearchBtn" aria-label="Search Products" class="w-10 h-10 rounded-full flex items-center justify-center text-nexora-ink hover:bg-nexora-purpleSoft/70 transition-colors cursor-pointer">
+          <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7.5"></circle>
+            <path stroke-linecap="round" d="M20 20l-3.8-3.8"></path>
+          </svg>
+        </button>
+
+        <!-- User Profile Avatar -->
+        <button onclick="showToast('Welcome back, Alex! NEXORA Member Tier: VIP')" aria-label="User Profile" class="w-10 h-10 rounded-full p-[2px] border border-nexora-ink/60 hover:border-nexora-purple transition-colors overflow-hidden bg-white cursor-pointer">
+          <img
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+            onerror="this.src='https://placehold.co/80x80/7E60D6/FFFFFF?text=NX'"
+            alt="User Avatar"
+            class="w-full h-full object-cover rounded-full"
+          />
+        </button>
+
+        <!-- Pill Bag Badge (1 item) -->
+        <button onclick="openQuickLook('Graffiti Hoodie — $79.99')" class="flex items-center gap-2.5 pl-3.5 pr-4 py-2 rounded-full border border-nexora-purple/45 bg-white hover:border-nexora-purple hover:bg-nexora-purpleSoft/40 transition-all shadow-2xs active:scale-95 cursor-pointer">
+          <svg class="w-[18px] h-[18px] text-nexora-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.2 10.4a2 2 0 002 1.6h7.6a2 2 0 001.9-1.4L21 7H6"/>
+            <circle cx="9.5" cy="20" r="1.3" fill="currentColor"/>
+            <circle cx="17.5" cy="20" r="1.3" fill="currentColor"/>
+          </svg>
+          <span id="cartCountLabel" class="text-[13px] font-semibold text-nexora-ink whitespace-nowrap">1 item</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileNavDrawer" class="hidden md:hidden px-6 pb-4 pt-1 border-b border-black/5 bg-[#FAFAFC]">
+      <div class="flex flex-wrap gap-3 text-sm font-semibold text-nexora-ink">
+        <button onclick="openQuickLook('NEXORA Streetwear Collection')" class="py-1.5 px-3.5 rounded-full bg-white shadow-2xs">Shop</button>
+        <button onclick="openQuickLook('New In — Season 04')" class="py-1.5 px-3.5 rounded-full bg-white shadow-2xs">New In</button>
+        <button onclick="openQuickLook('Curated Streetwear Collections')" class="py-1.5 px-3.5 rounded-full bg-white shadow-2xs">Collections</button>
+        <button onclick="showToast('NEXORA — Crafted for comfort & bold self-expression.')" class="py-1.5 px-3.5 rounded-full bg-white shadow-2xs">About</button>
+        <button onclick="showToast('Contact us at hello@nexora.style')" class="py-1.5 px-3.5 rounded-full bg-white shadow-2xs">Contact</button>
+      </div>
+    </div>
+
+    <!-- ==================== FULL-SCREEN HERO SECTION ==================== -->
+    <main id="lookbook" class="flex-1 w-full px-4 sm:px-8 lg:px-12 pt-2 sm:pt-4 pb-5 sm:pb-7 flex flex-col justify-between relative">
+
+      <!-- Upper Split Display Typography (Enlarged to fill upper white space on both sides of model) -->
+      <div class="relative z-10 w-full flex flex-col lg:flex-row justify-between items-start lg:items-end px-2 sm:px-5 pt-1 sm:pt-2 pb-4 sm:pb-6 lg:pb-7 gap-4 lg:gap-0">
+        <!-- Left Display Heading -->
+        <div>
+          <p class="font-extrabold italic text-2xl sm:text-3xl lg:text-[2.6rem] xl:text-[3.1rem] 2xl:text-[3.5rem] text-nexora-ink tracking-tight leading-none mb-1.5 sm:mb-2">
+            Define Your
+          </p>
+          <h1 class="chunky-heading font-black text-6xl sm:text-7xl lg:text-[6.8rem] xl:text-[8.2rem] 2xl:text-[9.2rem] text-nexora-purple uppercase tracking-tight leading-[0.88] select-none">
+            STYLE
+          </h1>
+        </div>
+
+        <!-- Right Display Heading -->
+        <div class="lg:text-left self-end lg:self-auto relative pr-4 sm:pr-10 lg:pr-12">
+          <!-- 8-point Lavender Starburst Accent -->
+          <svg class="w-9 h-9 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-nexora-purpleLight absolute -top-2 sm:-top-3 right-0 sm:right-1 animate-star" viewBox="0 0 40 40" fill="currentColor">
+            <path d="M20 0L22.6 14.2L34.1 5.9L25.8 17.4L40 20L25.8 22.6L34.1 34.1L22.6 25.8L20 40L17.4 25.8L5.9 34.1L14.2 22.6L0 20L14.2 17.4L5.9 5.9L17.4 14.2L20 0Z"/>
+          </svg>
+          <p class="font-extrabold italic text-2xl sm:text-3xl lg:text-[2.6rem] xl:text-[3.1rem] 2xl:text-[3.5rem] text-nexora-ink tracking-tight leading-none mb-1.5 sm:mb-2">
+            Own Your
+          </p>
+          <h2 class="chunky-heading font-black text-6xl sm:text-7xl lg:text-[6.8rem] xl:text-[8.2rem] 2xl:text-[9.2rem] text-nexora-purple uppercase tracking-tight leading-[0.88] select-none">
+            WORLD
+          </h2>
+        </div>
+      </div>
+
+      <!-- Shorter Rounded Purple Card (gives generous upper white space so model rises between STYLE & WORLD) -->
+      <div id="heroPurpleCard" class="relative w-full lg:h-[58vh] lg:min-h-[450px] lg:max-h-[540px] bg-[#7E66DC] rounded-[30px] sm:rounded-[38px] px-6 sm:px-10 lg:px-14 py-6 sm:py-8 lg:py-8 text-white shadow-card flex items-stretch overflow-visible">
+
+        <!-- Decorative Background Subtle Oval Waves behind Center Model -->
+        <div class="hidden lg:block pointer-events-none absolute inset-0 overflow-hidden rounded-[38px]">
+          <div class="absolute left-[46%] top-[12%] w-[280px] h-[52px] -rotate-[18deg] rounded-full bg-white/[0.08]"></div>
+          <div class="absolute left-[49%] top-[32%] w-[310px] h-[56px] -rotate-[18deg] rounded-full bg-white/[0.08]"></div>
+          <div class="absolute left-[45%] top-[53%] w-[290px] h-[54px] -rotate-[18deg] rounded-full bg-white/[0.08]"></div>
+          <div class="absolute left-[48%] top-[74%] w-[270px] h-[50px] -rotate-[18deg] rounded-full bg-white/[0.08]"></div>
+        </div>
+
+        <!-- 3-Column Hero Content Grid -->
+        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-4 items-center relative z-10">
+
+          <!-- LEFT COLUMN: Collection Copy, CTA, and Glassmorphic Social Proof -->
+          <div class="lg:col-span-4 flex flex-col justify-between h-full space-y-5 lg:space-y-4 z-20 py-1">
+            <div>
+              <!-- Tagline -->
+              <div class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/95 mb-2">
+                <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+                </svg>
+                <span>New Collection</span>
+              </div>
+
+              <!-- Sub-hero Title -->
+              <h3 class="text-2xl sm:text-3xl xl:text-[38px] font-bold leading-[1.12] tracking-tight text-white mb-3">
+                Where Comfort<br/>Meets Confidence
+              </h3>
+
+              <!-- Supporting Paragraph -->
+              <p class="text-xs sm:text-[14px] text-white/85 leading-relaxed max-w-[290px] mb-5">
+                Elevate your everyday look with pieces that speak you.
+              </p>
+
+              <!-- Primary Black Pill CTA Button -->
+              <button
+                onclick="openQuickLook('NEXORA Season 04 Collection')"
+                class="group inline-flex items-center gap-3.5 bg-[#141414] hover:bg-black text-white pl-5 pr-2 py-2 rounded-full text-xs sm:text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer"
+              >
+                <span>Explore Now</span>
+                <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:translate-x-0.5 group-hover:border-white transition-all">
+                  <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+
+            <!-- Glassmorphic Social Proof Pill -->
+            <div class="glass-pill relative rounded-[20px] p-3 max-w-[260px] flex items-center gap-3 shadow-sm">
+              <!-- Overlapping Trendsetter Avatars -->
+              <div class="flex -space-x-2.5 shrink-0">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+                  onerror="this.src='https://placehold.co/64x64/141414/FFFFFF?text=1'"
+                  alt="Member 1"
+                  class="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border-2 border-white"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=100&q=80"
+                  onerror="this.src='https://placehold.co/64x64/6A4BC4/FFFFFF?text=2'"
+                  alt="Member 2"
+                  class="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border-2 border-white"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80"
+                  onerror="this.src='https://placehold.co/64x64/9C83E8/FFFFFF?text=3'"
+                  alt="Member 3"
+                  class="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border-2 border-white"
+                />
+              </div>
+
+              <div class="text-[11px] sm:text-xs leading-snug font-medium text-white/95 pr-2">
+                Loved by <span class="font-bold text-white">20K+</span><br/>Trendsetters
+              </div>
+
+              <!-- Small White Heart Accent -->
+              <svg class="w-3.5 h-3.5 text-white absolute bottom-2 right-2.5 opacity-95" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- CENTER COLUMN: Spacer on Desktop (Model anchors directly to Purple Card bottom-0) -->
+          <div class="lg:col-span-4 relative flex justify-center items-end min-h-[360px] sm:min-h-[440px] lg:min-h-full bg-transparent">
+            <!-- Mobile/Tablet Model View -->
+            <div class="lg:hidden relative -mb-6 sm:-mb-8 flex items-end justify-center z-20 select-none pointer-events-none pure-transparent-cutout">
+              <img
+                src="akka.png"
+                onerror="this.src='https://placehold.co/540x730/transparent/7E60D6?text=akka.png'"
+                alt="NEXORA Streetwear Model"
+                class="akka-cutout-img h-[430px] sm:h-[540px] w-auto max-w-none object-contain object-bottom block pure-transparent-cutout"
+              />
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: 3 Minimalist Feature Badges + Featured Look Product Card -->
+          <div class="lg:col-span-4 flex flex-col items-center lg:items-end justify-between h-full space-y-4 z-20 py-1">
+            <!-- 3 Minimalist Feature Badges -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-5 w-full max-w-[270px] text-center">
+              <!-- Badge 1: Premium Quality -->
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-9 h-9 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16 3l5 3-2 4-3-1.5V21H8V8.5L5 10 3 6l5-3c1 1.5 2.5 2.2 4 2.2S15 4.5 16 3z"/>
+                  </svg>
+                </div>
+                <span class="text-[10px] sm:text-[11px] font-medium leading-tight text-white/95">Premium<br/>Quality</span>
+              </div>
+
+              <!-- Badge 2: Sustainable Fashion -->
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-9 h-9 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8Z"/>
+                  </svg>
+                </div>
+                <span class="text-[10px] sm:text-[11px] font-medium leading-tight text-white/95">Sustainable<br/>Fashion</span>
+              </div>
+
+              <!-- Badge 3: Limited Edition -->
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-9 h-9 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 2h12l4 6-10 14L2 8l4-6zm2.2 2L5.5 8h13l-2.7-4H8.2zM12 18.6L17.6 10H6.4L12 18.6z"/>
+                  </svg>
+                </div>
+                <span class="text-[10px] sm:text-[11px] font-medium leading-tight text-white/95">Limited<br/>Edition</span>
+              </div>
+            </div>
+
+            <!-- Featured Look White Card -->
+            <div class="w-full max-w-[235px] flex flex-col items-center">
+              <p class="text-xs sm:text-[13px] font-semibold text-white/95 mb-2 tracking-wide">
+                Featured Look
+              </p>
+
+              <div class="w-full bg-white rounded-[24px] p-3 shadow-xl text-center text-nexora-ink">
+                <!-- Hoodie Thumbnail -->
+                <div
+                  onclick="openQuickLook('Graffiti Hoodie — $79.99')"
+                  class="w-full h-[135px] sm:h-[145px] rounded-[18px] overflow-hidden bg-[#DCD7EB] mb-2.5 cursor-pointer group"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80"
+                    onerror="this.src='https://placehold.co/320x240/EAE4FB/7E60D6?text=Graffiti+Hoodie'"
+                    alt="Graffiti Hoodie"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+
+                <!-- Product Title & Subtitle -->
+                <h4 class="font-bold text-sm sm:text-[15px] text-nexora-ink leading-tight">
+                  Graffiti Hoodie
+                </h4>
+                <p class="text-[11px] text-nexora-muted font-medium mt-0.5 mb-2.5">
+                  Streetwear Essential
+                </p>
+
+                <!-- Price Action Pill Button -->
+                <button
+                  onclick="incrementBagAndNotify()"
+                  class="w-full py-2 px-4 rounded-full bg-nexora-purple hover:bg-nexora-purpleDark text-white font-semibold text-xs sm:text-[13px] flex items-center justify-center gap-2 shadow-pill transition-all active:scale-95 cursor-pointer"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.2 10.4a2 2 0 002 1.6h7.6a2 2 0 001.9-1.4L21 7H6"/>
+                    <circle cx="9.5" cy="20" r="1.2" fill="currentColor"/>
+                    <circle cx="17.5" cy="20" r="1.2" fill="currentColor"/>
+                  </svg>
+                  <span>$79.99</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- DESKTOP CENTER MODEL CUTOUT: Anchored Flush at bottom-0 of the Purple Card -->
+        <div id="desktopModelWrapper" class="hidden lg:flex absolute bottom-0 left-1/2 -translate-x-1/2 items-end justify-center z-20 select-none pointer-events-none pure-transparent-cutout">
+          <!-- Orbital Ring SVG behind the model's upper head/beanie area -->
+          <svg class="absolute top-[11%] left-1/2 -translate-x-1/2 w-[450px] xl:w-[510px] h-[175px] text-nexora-purple/65 pointer-events-none -z-10 animate-float-slow" viewBox="0 0 360 140" fill="none">
+            <ellipse cx="180" cy="70" rx="165" ry="34" transform="rotate(11 180 70)" stroke="currentColor" stroke-width="1.35"/>
+          </svg>
+
+          <img
+            id="desktopAkkaImg"
+            src="akka.png"
+            onerror="this.src='https://placehold.co/620x860/transparent/7E60D6?text=akka.png'"
+            alt="NEXORA Streetwear Model"
+            class="akka-cutout-img h-[76vh] xl:h-[83vh] max-h-[890px] w-auto max-w-none object-contain object-bottom block m-0 p-0 pure-transparent-cutout"
+          />
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== QUICK LOOK MODAL ==================== -->
+  <div id="quickLookModal" class="fixed inset-0 bg-black/45 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-[30px] p-6 shadow-2xl border border-nexora-purple/20 relative">
+      <button onclick="closeQuickLook()" aria-label="Close Preview" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-nexora-canvas hover:bg-nexora-purpleSoft flex items-center justify-center text-xs font-bold cursor-pointer">
+        ✕
+      </button>
+      <span class="inline-block text-[11px] font-bold uppercase tracking-wider text-nexora-purple bg-nexora-purpleSoft px-3 py-1 rounded-full mb-2">
+        NEXORA Exclusive
+      </span>
+      <h3 id="quickLookTitle" class="text-xl font-extrabold text-nexora-ink mb-2">
+        Graffiti Hoodie — $79.99
+      </h3>
+      <p class="text-sm text-nexora-muted leading-relaxed mb-5">
+        Heavyweight 460GSM organic cotton fleece in signature NEXORA lavender with puff-print street emblem.
+      </p>
+      <div class="flex items-center gap-3">
+        <button onclick="incrementBagAndNotify(); closeQuickLook();" class="flex-1 py-3 rounded-full bg-nexora-purple hover:bg-nexora-purpleDark text-white font-bold text-xs sm:text-sm shadow-pill transition-all cursor-pointer">
+          Add Featured Look — $79.99
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SEARCH MODAL ==================== -->
+  <div id="searchModal" class="fixed inset-0 bg-black/45 backdrop-blur-xs z-50 hidden items-start justify-center pt-20 px-4">
+    <div class="bg-white w-full max-w-lg rounded-[28px] p-5 shadow-2xl border border-nexora-purple/20">
+      <div class="flex items-center gap-3">
+        <svg class="w-5 h-5 text-nexora-purple" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7.5"></circle>
+          <path stroke-linecap="round" d="M20 20l-3.8-3.8"></path>
+        </svg>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search NEXORA drops, hoodies, tees..."
+          class="w-full text-sm font-medium focus:outline-none text-nexora-ink"
+        />
+        <button id="closeSearchBtn" class="text-xs font-bold px-3 py-1.5 rounded-full bg-nexora-canvas hover:bg-nexora-purpleSoft cursor-pointer">
+          ESC
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+    <div class="bg-nexora-ink text-white px-5 py-3 rounded-full shadow-xl flex items-center gap-2.5 text-xs sm:text-sm font-semibold border border-white/15">
+      <span class="w-2.5 h-2.5 rounded-full bg-nexora-purpleLight"></span>
+      <span id="toastMessage">Added to bag!</span>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    let itemCount = 1;
+
+    function incrementBagAndNotify() {
+      itemCount += 1;
+      const label = document.getElementById('cartCountLabel');
+      label.textContent = `${itemCount} ${itemCount === 1 ? 'item' : 'items'}`;
+      showToast('Graffiti Hoodie ($79.99) added!');
+    }
+
+    // Toast Helper
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMessage');
+      msgEl.textContent = message;
+
+      toast.classList.remove('opacity-0', 'translate-y-4');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-4');
+      }, 2800);
+    }
+
+    // Quick Look Modal
+    const quickLookModal = document.getElementById('quickLookModal');
+    function openQuickLook(title) {
+      document.getElementById('quickLookTitle').textContent = title;
+      quickLookModal.classList.remove('hidden');
+      quickLookModal.classList.add('flex');
+    }
+    function closeQuickLook() {
+      quickLookModal.classList.add('hidden');
+      quickLookModal.classList.remove('flex');
+    }
+    quickLookModal.addEventListener('click', (e) => {
+      if (e.target === quickLookModal) closeQuickLook();
+    });
+
+    // Search Modal Logic
+    const searchModal = document.getElementById('searchModal');
+    const searchInput = document.getElementById('searchInput');
+
+    function openSearch() {
+      searchModal.classList.remove('hidden');
+      searchModal.classList.add('flex');
+      setTimeout(() => searchInput.focus(), 50);
+    }
+
+    function closeSearch() {
+      searchModal.classList.add('hidden');
+      searchModal.classList.remove('flex');
+    }
+
+    document.getElementById('openSearchBtn').addEventListener('click', openSearch);
+    document.getElementById('closeSearchBtn').addEventListener('click', closeSearch);
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && searchInput.value.trim()) {
+        const query = searchInput.value.trim();
+        searchInput.value = '';
+        closeSearch();
+        showToast(`Searching NEXORA catalog for "${query}"...`);
+      }
+    });
+    searchModal.addEventListener('click', (e) => {
+      if (e.target === searchModal) closeSearch();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeSearch();
+        closeQuickLook();
+      }
+    });
+
+    // Mobile Menu Toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileNavDrawer').classList.toggle('hidden');
+    });
+
+    // Automatically trim empty transparent canvas padding at the bottom of akka.png
+    // so the model sits 100% flush with the bottom edge of the purple card (zero gap).
+    function trimTransparentBottomPadding(imgEl) {
+      if (!imgEl || !imgEl.naturalWidth || !imgEl.naturalHeight || imgEl.dataset.trimmed === 'true') return;
+      try {
+        const w = imgEl.naturalWidth;
+        const h = imgEl.naturalHeight;
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        ctx.drawImage(imgEl, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, w, h).data;
+        let lowestOpaqueRow = h - 1;
+
+        // Scan upward from bottom row to find the first row with visible pixels (alpha > 10)
+        outerLoop:
+        for (let y = h - 1; y >= 0; y--) {
+          const rowOffset = y * w * 4;
+          for (let x = 0; x < w; x++) {
+            if (imageData[rowOffset + x * 4 + 3] > 10) {
+              lowestOpaqueRow = y;
+              break outerLoop;
+            }
+          }
+        }
+
+        const trimmedHeight = lowestOpaqueRow + 1;
+        if (trimmedHeight > 0 && trimmedHeight < h - 2) {
+          const outCanvas = document.createElement('canvas');
+          outCanvas.width = w;
+          outCanvas.height = trimmedHeight;
+          outCanvas.getContext('2d').drawImage(canvas, 0, 0, w, trimmedHeight, 0, 0, w, trimmedHeight);
+          imgEl.dataset.trimmed = 'true';
+          imgEl.src = outCanvas.toDataURL('image/png');
+        }
+      } catch (err) {
+        // Fallback if opened via strict file:// origin without pixel read access:
+        // Pull wrapper slightly downward to eliminate empty bottom PNG margin
+        const wrapper = document.getElementById('desktopModelWrapper');
+        if (wrapper) {
+          wrapper.style.bottom = '-48px';
+        }
+      }
+    }
+
+    document.querySelectorAll('.akka-cutout-img').forEach((img) => {
+      if (img.complete) {
+        trimTransparentBottomPadding(img);
+      } else {
+        img.addEventListener('load', () => trimTransparentBottomPadding(img));
+      }
+    });
+  </script>
+</body>
+</html>
